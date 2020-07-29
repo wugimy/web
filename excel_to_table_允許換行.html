@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("textarea").on("change", function () {
+    var str = $("textarea").val();
+	var rowStrArray = str.split("\n");
+	var tdStrArray = rowStrArray[0].split("\t");
+	var cols = tdStrArray.length
+	
+	html = "<table>";
+	var tabStrArray = str.split("\t");
+	var temp = "<td><input type='text' value='" + tabStrArray[0] + "'></td>";
+	for (var i = 1; i < tabStrArray.length; i++) {
+		if (i % (cols-1) == 0) {
+		var rowStrArray = tabStrArray[i].split("\n");
+		temp += "<td><input type='text' value='" + rowStrArray[0] + "'></td>";
+		html += "<tr>" + temp + "</tr>";
+		temp = "<td><input type='text' value='" + rowStrArray[1] + "'></td>";
+		}
+		else {
+		temp += "<td><input type='text' value='" + tabStrArray[i] + "'></td>";
+		}
+	}
+	html += "</table>";
+    document.getElementById("demo").innerHTML = html;
+  });
+});
+</script>
+</head>
+
+<body>
+<h2>Excel copy-paste</h2>
+
+<textarea rows="10" cols="60"></textarea>
+<button>ccc</button>
+
+<div id="demo"></div>
+
+
+</body>
+</html>
