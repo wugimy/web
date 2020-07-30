@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("textarea").on("change", function () {
+    var str = $("textarea").val();
+	
+	html = "";
+	
+	var PAY_DATE = "";
+	var items = str.split(" ");
+	for (var i = 0; i < items.length; i++) {
+		html += items[i] + "," + Date.parse(items[i]) + "<br>";
+		if (Date.parse(items[i])) {
+			PAY_DATE = items[i]
+		}
+	}
+	
+    document.getElementById("demo").innerHTML = html + PAY_DATE;
+  });
+});
+</script>
+</head>
+
+<body>
+<h2>Excel copy-paste</h2>
+
+<textarea rows="10" cols="60"></textarea>
+<button>ccc</button>
+
+<div id="demo"></div>
+
+
+</body>
+</html>
