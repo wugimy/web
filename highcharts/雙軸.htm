@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript">
+$(function () {
+    var chart;
+	var categories = ['DVT1-1', 'DVT1-2', 'DVT1-3'];
+	var input1 = [4,5,6];
+	var input2 = [7,8,9];
+	var yield1 = [0.9,0.9,0.9]
+	var yield2 = [0.8,0.8,0.85]
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+             //取得div容器的id
+                renderTo: 'test',
+                zoomType: 'xy',
+                //折線圖
+                type: 'line',
+                //右方間距
+                marginRight: 130,
+                //下方間距
+                marginBottom: 25
+            },
+            title: {
+                text: '南部地區近30年每月平均溫度比較(1982 - 2011 年)單位 : °C',
+                x: -20 //位置至中
+            },
+            subtitle: {
+                text: '每月平均溫度表',
+                x: -20
+            },
+            credits: {
+             //隱藏官方連結
+             enabled: false
+             },
+            xAxis: {
+             //x軸的座標點
+                categories: categories
+            },
+			
+yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}°C',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'Temperature',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'Rainfall',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        labels: {
+            format: '{value} mm',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        opposite: true
+    }],
+
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y +'°CC';
+                }
+            },
+            legend: {
+             //由上至下
+             layout: 'vertical',
+             //靠左
+          align: 'left',
+          //從左上方為起點(0, 0)距離
+          x: 120,
+          y: 80,
+          //靠上
+          verticalAlign: 'top',
+          floating: true,
+          //框內背景顏色
+          backgroundColor: '#FFFFFF'
+            },
+            series: [
+			
+			{
+        name: 'INPUT1',
+        type: 'column',
+        yAxis: 1,
+        data: input1,
+        tooltip: {
+            valueSuffix: ' mm'
+        }
+
+    },
+	
+	
+			{
+        name: 'INPUT2',
+        type: 'column',
+        yAxis: 1,
+        data: input2,
+        tooltip: {
+            valueSuffix: ' mm'
+        }
+
+    },
+			
+			{
+                name: 'YIELD1',
+                data: yield1
+            }, {
+                name: 'YIELD2',
+                data: yield2
+            }]
+        });
+    });
+  
+});
+</script>
+<title>折線圖</title>
+</head>
+<body>
+ <div id="test"> </div> 
+</body>
+</html>
