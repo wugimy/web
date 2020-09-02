@@ -1,0 +1,77 @@
+body {
+font-family: 微軟正黑體, Microsoft JhengHei, Arial;
+font-size: small;
+}
+img {
+border : 0px solid black;
+vertical-align: middle;
+}
+table {
+font-family: Arial;
+border: 0px solid black;
+margin: 0;
+border-collapse: collapse;
+font-size: 9pt;
+}
+th {
+border: 2px solid white;
+padding-left: 2px;
+padding-right: 2px;
+background: #4682B4;
+color: white;
+}
+td {
+padding-left: 2px;
+padding-right: 2px;
+border-top: 1px solid gray;
+}
+td#align_right {
+text-align: right;
+}
+table#nb {
+border: 0px solid white;
+margin: 0px;
+padding: 0px;
+}
+table#nb th {
+border: 0px solid white;
+text-align: right;
+}
+table#nb th#title {
+font-size: 12pt;
+font-weight: bold;
+color: white;
+text-align: center;
+height: 40px;
+}
+table#nb td {
+border: 0px solid white;
+}
+a {
+color: blue;
+cursor: pointer;
+}
+a:hover {
+color: red;
+}
+caption {
+width: 160px;
+font-size: 12pt;
+font-weight: bold;
+color: #4F81BD;
+padding: 10px;
+}
+input, select{
+font-family: Arial;
+background: lightyellow;
+}
+input#UL {
+border: 0px solid white;
+border-bottom: 1px solid black;	
+}
+input#N {
+text-align: right;
+}
+h3 {
+font-size: large;
+}
