@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<title>新增網頁1</title>
+<style>
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#container {
+    height: 400px;
+}
+
+.highcharts-tooltip h3 {
+    margin: 0.3em 0;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+table {
+font-size: x-small;
+font-family: Arial;
+}
+td {
+text-align: right;
+border-top: 1px solid gray;
+}
+</style>
+</head>
+
+<body>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<table><tr><th>FAB</th><th>PRODUCT_STAGE_TYPE (目標)</th><th>W36</th><th>W37</th><th>W38</th><th>W39</th><th>W40</th><th>W41</th><th>W42</th><th>W43</th><th>W44</th><th>W45</th></tr><tr><TD>A</TD><TD>TFT (6)</TD><TD>6.97</TD><TD>6.88</TD><TD>7.09</TD><TD>8.08</TD><TD>7.83</TD><TD>8.06</TD><TD>8.21</TD><TD>8.88</TD><TD>7.76</TD><TD>7.87</TD></tr><tr><TD>B</TD><TD>AHVA (10)</TD><TD>8.17</TD><TD>8.8</TD><TD>10.7</TD><TD>10.38</TD><TD>10.82</TD><TD>9.64</TD><TD>9.65</TD><TD>11.06</TD><TD>10.41</TD><TD>8.17</TD></tr><tr><TD>B</TD><TD>OGM (30)</TD><TD>22.77</TD><TD>20.34</TD><TD>22.52</TD><TD>22.22</TD><TD>20.06</TD><TD>22.68</TD><TD>21.6</TD><TD></TD><TD>23.68</TD><TD>23.56</TD></tr><tr><TD>B</TD><TD>OGS (12)</TD><TD>23.14</TD><TD>20.01</TD><TD>20.68</TD><TD>18.21</TD><TD>20.12</TD><TD>21.38</TD><TD>19.78</TD><TD>21.82</TD><TD>31.73</TD><TD>23.18</TD></tr><tr><TD>B</TD><TD>OTP (10.5)</TD><TD>12.91</TD><TD>12.87</TD><TD>13.4</TD><TD>12.45</TD><TD>12.56</TD><TD>13.05</TD><TD>13.42</TD><TD>13.16</TD><TD>13.42</TD><TD>13.8</TD></tr><tr><TD>B</TD><TD>TFT (6)</TD><TD>7.08</TD><TD>6.89</TD><TD>7.87</TD><TD>7.73</TD><TD>7.83</TD><TD>7.66</TD><TD>6</TD><TD>6.5</TD><TD>6.98</TD><TD>6.73</TD></tr><tr><TD>A</TD><TD>TFT (6)</TD><TD>6.84</TD><TD>6.97</TD><TD>6.92</TD><TD>7.03</TD><TD>7.27</TD><TD>7.37</TD><TD>7.49</TD><TD>7.6</TD><TD>7.75</TD><TD>7.74</TD></tr><tr><TD>B</TD><TD>AHVA (10)</TD><TD>9.27</TD><TD>8.2</TD><TD>8.63</TD><TD>9.22</TD><TD>9.53</TD><TD>9.78</TD><TD>9.71</TD><TD>9.73</TD><TD>9.93</TD><TD>9.92</TD></tr><tr><TD>B</TD><TD>OGM (30)</TD><TD></TD><TD>22.77</TD><TD>21.58</TD><TD>21.97</TD><TD>22.02</TD><TD>21.69</TD><TD>21.66</TD><TD>21.67</TD><TD>21.67</TD><TD>21.82</TD></tr><tr><TD>B</TD><TD>OGS (12)</TD><TD></TD><TD>23.14</TD><TD>21.51</TD><TD>21.24</TD><TD>20.33</TD><TD>20.28</TD><TD>20.5</TD><TD>20.4</TD><TD>20.4</TD><TD>20.41</TD></tr><tr><TD>B</TD><TD>OTP (10.5)</TD><TD>12.28</TD><TD>12.85</TD><TD>12.89</TD><TD>13.04</TD><TD>12.89</TD><TD>12.83</TD><TD>12.93</TD><TD>12.97</TD><TD>12.99</TD><TD>13.06</TD></tr><tr><TD>B</TD><TD>TFT (6)</TD><TD>6.56</TD><TD>7.1</TD><TD>7</TD><TD>7.29</TD><TD>7.44</TD><TD>7.52</TD><TD>7.5</TD><TD>7.28</TD><TD>7.22</TD><TD>7.18</TD></tr></table>
+
+<div id="container" style="height: 800px;"></div>
+<script>
+Highcharts.chart('container', {
+
+    chart: {
+        type: 'bubble',
+        plotBorderWidth: 1,
+        zoomType: 'xy'
+    },
+    credits: {
+        //隱藏官方連結
+        enabled: false
+        },
+		exporting: {
+        enabled:false
+	},
+
+    legend: {
+        enabled: false
+    },
+
+    title: {
+        text: 'Weekly Cycle Time'
+    },
+
+    //subtitle: {
+    //    text: 'Source: <a href="http://www.euromonitor.com/">Euromonitor</a> and <a href="https://data.oecd.org/">OECD</a>'
+    //},
+
+    //accessibility: {
+    //    point: {
+    //        valueDescriptionFormat: '{index}. {point.name}, fat: {point.x}g, sugar: {point.y}g, obesity: {point.z}%.'
+    //    }
+    //},
+
+    xAxis: {
+		categories: ['W36','W37','W38','W39','W40','W41','W42','W43','W44','W45'],
+        gridLineWidth: 1,
+        title: {
+            text: ''
+        },
+        labels: {
+            format: '{value}'
+        },
+        plotLines: [{
+            color: 'black',
+            dashStyle: 'dot',
+            width: 2,
+            value: 65,
+            label: {
+                rotation: 0,
+                y: 15,
+                style: {
+                    fontStyle: 'italic'
+                },
+                text: ''
+            },
+            zIndex: 3
+        }],
+        accessibility: {
+            rangeDescription: 'Range: 60 to 100 grams.'
+        }
+    },
+
+    yAxis: {
+        startOnTick: false,
+        endOnTick: false,
+        title: {
+            text: ''
+        },
+        labels: {
+            format: '{value}'
+        },
+        maxPadding: 0.05,
+        plotLines: [{
+            color: 'black',
+            dashStyle: 'dot',
+            width: 2,
+            value: 50,
+            label: {
+                align: 'right',
+                style: {
+                    fontStyle: 'italic'
+                },
+                text: 'Safe sugar intake 50g/day',
+                x: -10
+            },
+            zIndex: 3
+        }],
+        accessibility: {
+            rangeDescription: 'Range: 0 to 160 grams.'
+        }
+    },
+
+    //tooltip: {
+    //    useHTML: true,
+    //    headerFormat: '<table>',
+    //    pointFormat: '<tr><th colspan="2"><h3>{point.country}</h3></th></tr>' +
+    //        '<tr><th>Fat intake:</th><td>{point.x}g</td></tr>' +
+    //        '<tr><th>Sugar intake:</th><td>{point.y}g</td></tr>' +
+    //        '<tr><th>Obesity (adults):</th><td>{point.z}%</td></tr>',
+    //    footerFormat: '</table>',
+    //    followPointer: true
+    //},
+
+    plotOptions: {		
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}',
+				style: {
+				color: 'black',
+				fontSize: '15px'
+				}
+            }
+			
+			
+        }
+    },
+
+    series: [{
+        data: [
+		
+            { x: 0, y: 0, z: 1, name: 'A-TFT<br>(6.97)', color: 'pink'}
+			,
+            { x: 1, y: 0, z: 1, name: 'A-TFT<br>(6.88)', color: 'pink'}
+			,
+            { x: 2, y: 0, z: 1, name: 'A-TFT<br>(7.09)', color: 'pink'}
+			,
+            { x: 3, y: 0, z: 1, name: 'A-TFT<br>(8.08)', color: 'pink'}
+			,
+            { x: 4, y: 0, z: 1, name: 'A-TFT<br>(7.83)', color: 'pink'}
+			,
+            { x: 5, y: 0, z: 1, name: 'A-TFT<br>(8.06)', color: 'pink'}
+			,
+            { x: 6, y: 0, z: 1, name: 'A-TFT<br>(8.21)', color: 'pink'}
+			,
+            { x: 7, y: 0, z: 1, name: 'A-TFT<br>(8.88)', color: 'pink'}
+			,
+            { x: 8, y: 0, z: 1, name: 'A-TFT<br>(7.76)', color: 'pink'}
+			,
+            { x: 9, y: 0, z: 1, name: 'A-TFT<br>(7.87)', color: 'pink'}
+			,
+            { x: 0, y: 5, z: 1, name: 'B-AHVA<br>(8.17)', color: 'lightgreen'}
+			,
+            { x: 1, y: 5, z: 1, name: 'B-AHVA<br>(8.80)', color: 'lightgreen'}
+			,
+            { x: 2, y: 5, z: 1, name: 'B-AHVA<br>(10.70)', color: 'pink'}
+			,
+            { x: 3, y: 5, z: 1, name: 'B-AHVA<br>(10.38)', color: 'pink'}
+			,
+            { x: 4, y: 5, z: 1, name: 'B-AHVA<br>(10.82)', color: 'pink'}
+			,
+            { x: 5, y: 5, z: 1, name: 'B-AHVA<br>(9.64)', color: 'lightgreen'}
+			,
+            { x: 6, y: 5, z: 1, name: 'B-AHVA<br>(9.65)', color: 'lightgreen'}
+			,
+            { x: 7, y: 5, z: 1, name: 'B-AHVA<br>(11.06)', color: 'pink'}
+			,
+            { x: 8, y: 5, z: 1, name: 'B-AHVA<br>(10.41)', color: 'pink'}
+			,
+            { x: 9, y: 5, z: 1, name: 'B-AHVA<br>(8.17)', color: 'lightgreen'}
+			,
+            { x: 0, y: 10, z: 1, name: 'B-OGM<br>(22.77)', color: 'lightgreen'}
+			,
+            { x: 1, y: 10, z: 1, name: 'B-OGM<br>(20.34)', color: 'lightgreen'}
+			,
+            { x: 2, y: 10, z: 1, name: 'B-OGM<br>(22.52)', color: 'lightgreen'}
+			,
+            { x: 3, y: 10, z: 1, name: 'B-OGM<br>(22.22)', color: 'lightgreen'}
+			,
+            { x: 4, y: 10, z: 1, name: 'B-OGM<br>(20.06)', color: 'lightgreen'}
+			,
+            { x: 5, y: 10, z: 1, name: 'B-OGM<br>(22.68)', color: 'lightgreen'}
+			,
+            { x: 6, y: 10, z: 1, name: 'B-OGM<br>(21.60)', color: 'lightgreen'}
+			,
+            { x: 8, y: 10, z: 1, name: 'B-OGM<br>(23.68)', color: 'lightgreen'}
+			,
+            { x: 9, y: 10, z: 1, name: 'B-OGM<br>(23.56)', color: 'lightgreen'}
+			,
+            { x: 0, y: 15, z: 1, name: 'B-OGS<br>(23.14)', color: 'pink'}
+			,
+            { x: 1, y: 15, z: 1, name: 'B-OGS<br>(20.01)', color: 'pink'}
+			,
+            { x: 2, y: 15, z: 1, name: 'B-OGS<br>(20.68)', color: 'pink'}
+			,
+            { x: 3, y: 15, z: 1, name: 'B-OGS<br>(18.21)', color: 'pink'}
+			,
+            { x: 4, y: 15, z: 1, name: 'B-OGS<br>(20.12)', color: 'pink'}
+			,
+            { x: 5, y: 15, z: 1, name: 'B-OGS<br>(21.38)', color: 'pink'}
+			,
+            { x: 6, y: 15, z: 1, name: 'B-OGS<br>(19.78)', color: 'pink'}
+			,
+            { x: 7, y: 15, z: 1, name: 'B-OGS<br>(21.82)', color: 'pink'}
+			,
+            { x: 8, y: 15, z: 1, name: 'B-OGS<br>(31.73)', color: 'pink'}
+			,
+            { x: 9, y: 15, z: 1, name: 'B-OGS<br>(23.18)', color: 'pink'}
+			,
+            { x: 0, y: 20, z: 1, name: 'B-OTP<br>(12.91)', color: 'pink'}
+			,
+            { x: 1, y: 20, z: 1, name: 'B-OTP<br>(12.87)', color: 'pink'}
+			,
+            { x: 2, y: 20, z: 1, name: 'B-OTP<br>(13.40)', color: 'pink'}
+			,
+            { x: 3, y: 20, z: 1, name: 'B-OTP<br>(12.45)', color: 'pink'}
+			,
+            { x: 4, y: 20, z: 1, name: 'B-OTP<br>(12.56)', color: 'pink'}
+			,
+            { x: 5, y: 20, z: 1, name: 'B-OTP<br>(13.05)', color: 'pink'}
+			,
+            { x: 6, y: 20, z: 1, name: 'B-OTP<br>(13.42)', color: 'pink'}
+			,
+            { x: 7, y: 20, z: 1, name: 'B-OTP<br>(13.16)', color: 'pink'}
+			,
+            { x: 8, y: 20, z: 1, name: 'B-OTP<br>(13.42)', color: 'pink'}
+			,
+            { x: 9, y: 20, z: 1, name: 'B-OTP<br>(13.80)', color: 'pink'}
+			,
+            { x: 0, y: 25, z: 1, name: 'B-TFT<br>(7.08)', color: 'pink'}
+			,
+            { x: 1, y: 25, z: 1, name: 'B-TFT<br>(6.89)', color: 'pink'}
+			,
+            { x: 2, y: 25, z: 1, name: 'B-TFT<br>(7.87)', color: 'pink'}
+			,
+            { x: 3, y: 25, z: 1, name: 'B-TFT<br>(7.73)', color: 'pink'}
+			,
+            { x: 4, y: 25, z: 1, name: 'B-TFT<br>(7.83)', color: 'pink'}
+			,
+            { x: 5, y: 25, z: 1, name: 'B-TFT<br>(7.66)', color: 'pink'}
+			,
+            { x: 6, y: 25, z: 1, name: 'B-TFT<br>(6.00)', color: 'lightgreen'}
+			,
+            { x: 7, y: 25, z: 1, name: 'B-TFT<br>(6.50)', color: 'pink'}
+			,
+            { x: 8, y: 25, z: 1, name: 'B-TFT<br>(6.98)', color: 'pink'}
+			,
+            { x: 9, y: 25, z: 1, name: 'B-TFT<br>(6.73)', color: 'pink'}
+			,
+            { x: 0, y: 30, z: 1, name: 'A-TFT<br>(6.84)', color: 'pink'}
+			,
+            { x: 1, y: 30, z: 1, name: 'A-TFT<br>(6.97)', color: 'pink'}
+			,
+            { x: 2, y: 30, z: 1, name: 'A-TFT<br>(6.92)', color: 'pink'}
+			,
+            { x: 3, y: 30, z: 1, name: 'A-TFT<br>(7.03)', color: 'pink'}
+			,
+            { x: 4, y: 30, z: 1, name: 'A-TFT<br>(7.27)', color: 'pink'}
+			,
+            { x: 5, y: 30, z: 1, name: 'A-TFT<br>(7.37)', color: 'pink'}
+			,
+            { x: 6, y: 30, z: 1, name: 'A-TFT<br>(7.49)', color: 'pink'}
+			,
+            { x: 7, y: 30, z: 1, name: 'A-TFT<br>(7.60)', color: 'pink'}
+			,
+            { x: 8, y: 30, z: 1, name: 'A-TFT<br>(7.75)', color: 'pink'}
+			,
+            { x: 9, y: 30, z: 1, name: 'A-TFT<br>(7.74)', color: 'pink'}
+			,
+            { x: 0, y: 35, z: 1, name: 'B-AHVA<br>(9.27)', color: 'lightgreen'}
+			,
+            { x: 1, y: 35, z: 1, name: 'B-AHVA<br>(8.20)', color: 'lightgreen'}
+			,
+            { x: 2, y: 35, z: 1, name: 'B-AHVA<br>(8.63)', color: 'lightgreen'}
+			,
+            { x: 3, y: 35, z: 1, name: 'B-AHVA<br>(9.22)', color: 'lightgreen'}
+			,
+            { x: 4, y: 35, z: 1, name: 'B-AHVA<br>(9.53)', color: 'lightgreen'}
+			,
+            { x: 5, y: 35, z: 1, name: 'B-AHVA<br>(9.78)', color: 'lightgreen'}
+			,
+            { x: 6, y: 35, z: 1, name: 'B-AHVA<br>(9.71)', color: 'lightgreen'}
+			,
+            { x: 7, y: 35, z: 1, name: 'B-AHVA<br>(9.73)', color: 'lightgreen'}
+			,
+            { x: 8, y: 35, z: 1, name: 'B-AHVA<br>(9.93)', color: 'lightgreen'}
+			,
+            { x: 9, y: 35, z: 1, name: 'B-AHVA<br>(9.92)', color: 'lightgreen'}
+			,
+            { x: 1, y: 40, z: 1, name: 'B-OGM<br>(22.77)', color: 'lightgreen'}
+			,
+            { x: 2, y: 40, z: 1, name: 'B-OGM<br>(21.58)', color: 'lightgreen'}
+			,
+            { x: 3, y: 40, z: 1, name: 'B-OGM<br>(21.97)', color: 'lightgreen'}
+			,
+            { x: 4, y: 40, z: 1, name: 'B-OGM<br>(22.02)', color: 'lightgreen'}
+			,
+            { x: 5, y: 40, z: 1, name: 'B-OGM<br>(21.69)', color: 'lightgreen'}
+			,
+            { x: 6, y: 40, z: 1, name: 'B-OGM<br>(21.66)', color: 'lightgreen'}
+			,
+            { x: 7, y: 40, z: 1, name: 'B-OGM<br>(21.67)', color: 'lightgreen'}
+			,
+            { x: 8, y: 40, z: 1, name: 'B-OGM<br>(21.67)', color: 'lightgreen'}
+			,
+            { x: 9, y: 40, z: 1, name: 'B-OGM<br>(21.82)', color: 'lightgreen'}
+			,
+            { x: 1, y: 45, z: 1, name: 'B-OGS<br>(23.14)', color: 'pink'}
+			,
+            { x: 2, y: 45, z: 1, name: 'B-OGS<br>(21.51)', color: 'pink'}
+			,
+            { x: 3, y: 45, z: 1, name: 'B-OGS<br>(21.24)', color: 'pink'}
+			,
+            { x: 4, y: 45, z: 1, name: 'B-OGS<br>(20.33)', color: 'pink'}
+			,
+            { x: 5, y: 45, z: 1, name: 'B-OGS<br>(20.28)', color: 'pink'}
+			,
+            { x: 6, y: 45, z: 1, name: 'B-OGS<br>(20.50)', color: 'pink'}
+			,
+            { x: 7, y: 45, z: 1, name: 'B-OGS<br>(20.40)', color: 'pink'}
+			,
+            { x: 8, y: 45, z: 1, name: 'B-OGS<br>(20.40)', color: 'pink'}
+			,
+            { x: 9, y: 45, z: 1, name: 'B-OGS<br>(20.41)', color: 'pink'}
+			,
+            { x: 0, y: 50, z: 1, name: 'B-OTP<br>(12.28)', color: 'pink'}
+			,
+            { x: 1, y: 50, z: 1, name: 'B-OTP<br>(12.85)', color: 'pink'}
+			,
+            { x: 2, y: 50, z: 1, name: 'B-OTP<br>(12.89)', color: 'pink'}
+			,
+            { x: 3, y: 50, z: 1, name: 'B-OTP<br>(13.04)', color: 'pink'}
+			,
+            { x: 4, y: 50, z: 1, name: 'B-OTP<br>(12.89)', color: 'pink'}
+			,
+            { x: 5, y: 50, z: 1, name: 'B-OTP<br>(12.83)', color: 'pink'}
+			,
+            { x: 6, y: 50, z: 1, name: 'B-OTP<br>(12.93)', color: 'pink'}
+			,
+            { x: 7, y: 50, z: 1, name: 'B-OTP<br>(12.97)', color: 'pink'}
+			,
+            { x: 8, y: 50, z: 1, name: 'B-OTP<br>(12.99)', color: 'pink'}
+			,
+            { x: 9, y: 50, z: 1, name: 'B-OTP<br>(13.06)', color: 'pink'}
+			,
+            { x: 0, y: 55, z: 1, name: 'B-TFT<br>(6.56)', color: 'pink'}
+			,
+            { x: 1, y: 55, z: 1, name: 'B-TFT<br>(7.10)', color: 'pink'}
+			,
+            { x: 2, y: 55, z: 1, name: 'B-TFT<br>(7.00)', color: 'pink'}
+			,
+            { x: 3, y: 55, z: 1, name: 'B-TFT<br>(7.29)', color: 'pink'}
+			,
+            { x: 4, y: 55, z: 1, name: 'B-TFT<br>(7.44)', color: 'pink'}
+			,
+            { x: 5, y: 55, z: 1, name: 'B-TFT<br>(7.52)', color: 'pink'}
+			,
+            { x: 6, y: 55, z: 1, name: 'B-TFT<br>(7.50)', color: 'pink'}
+			,
+            { x: 7, y: 55, z: 1, name: 'B-TFT<br>(7.28)', color: 'pink'}
+			,
+            { x: 8, y: 55, z: 1, name: 'B-TFT<br>(7.22)', color: 'pink'}
+			,
+            { x: 9, y: 55, z: 1, name: 'B-TFT<br>(7.18)', color: 'pink'}
+			
+        ]
+    }
+	
+	
+	]
+
+});
+</script>
+
+</body>
+
+</html>
