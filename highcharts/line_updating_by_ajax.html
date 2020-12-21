@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+
+<title>折線圖</title>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+
+</head>
+<body>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        Chart showing data updating every second, with old data being removed.
+    </p>
+</figure>
+
+
+<script>
+var daily_target = 2000;
+var actual = 0;
+var url = "test1.txt";
+htmlobj=$.ajax({url:url,async:false});
+actual = eval(htmlobj.responseText);
+
+var today = new Date();
+var hh = today.getHours();
+if (hh < 8) {
+today.setDate(today.getDate()-1);
+}
+
+var dtm = today.getFullYear()+ "/" + (today.getMonth()+1) + "/" + today.getDate() + " 07:30:00";
+document.write(dtm)
+var d1 = new Date(dtm);
+
+Highcharts.chart('container', {
+    chart: {
+        type: 'spline',
+        animation: Highcharts.svg, // don't animate in old IE
+        marginRight: 10,
+        events: {
+            load: function () {
+                // set up the updating of the chart each second
+                var series = this.series[0];
+				var series1 = this.series[1];
+                setInterval(function () {
+					var d2 = new Date();
+					ss = d2.getSeconds();
+					mm = d2.getMinutes();
+					day_ratio = (d2 - d1) / 86400000;
+					target = day_ratio * daily_target;
+					
+                    var x = (new Date()).getTime(); // current time
+					if (mm % 1 == 0 && ss == 0) {
+					//actual = actual * 1.01;
+					htmlobj=$.ajax({url:url,async:false});
+					actual = eval(htmlobj.responseText);
+					}
+
+                    series.addPoint([x,actual], true, true);
+					series1.addPoint([x,target], true, true);
+                }, 2000);
+            }
+        }
+    },
+
+    time: {
+        useUTC: false
+    },
+
+    title: {
+        text: 'Live random data'
+    },
+
+    accessibility: {
+        announceNewData: {
+            enabled: true,
+            minAnnounceInterval: 15000,
+            announcementFormatter: function (allSeries, newSeries, newPoint) {
+                if (newPoint) {
+                    return 'New point added. Value: ' + newPoint.y;
+                }
+                return false;
+            }
+        }
+    },
+
+    xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 150
+    },
+
+    yAxis: {
+        title: {
+            text: 'Value'
+        },
+        plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+        }]
+    },
+
+    tooltip: {
+        headerFormat: '<b>{series.name}</b><br/>',
+        pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    series: [{
+		type: 'column',
+        name: 'Random data',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push({
+                    x: time + i * 1000,
+                    //y: Math.random()
+					y: 0
+                });
+            }
+            return data;
+        }())
+    }
+	,{
+        name: 'Target data',
+        data: (function () {
+            // generate an array of random data
+            var data2 = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data2.push({
+                    x: time + i * 1000,
+                    //y: Math.random()
+					y: 0
+                });
+            }
+            return data2;
+        }())
+    }
+	
+	]
+});
+</script>
+
+</body>
+</html>
