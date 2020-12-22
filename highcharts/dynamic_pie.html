@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+
+<title>多個圓餅圖</title>
+</head>
+<body onload="startTime()">
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        Chart showing how different series types can be combined in a single
+        chart. The chart is using a set of column series, overlaid by a line and
+        a pie series. The line is illustrating the column averages, while the
+        pie is illustrating the column totals.
+    </p>
+</figure>
+
+<script>
+var s = "A8IEX10,1,2,3,4;A8IEX20,1,2,4,4;A8IEX30,4,2,3,4"
+row = s.split(";")
+document.write(row.length)
+
+const chart = Highcharts.chart('container', {
+
+    title: {
+        text: 'Combination chart'
+    },
+    xAxis: {
+        categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+    },
+    labels: {
+        items: [{
+            html: 'Total fruit consumption',
+            style: {
+                left: '50px',
+                top: '18px',
+                color: ( // theme
+                    Highcharts.defaultOptions.title.style &&
+                    Highcharts.defaultOptions.title.style.color
+                ) || 'black'
+            }
+        }
+		//,{
+        //    html: 'Total fruit',
+        //    style: {
+        //        left: '200px',
+        //        top: '100px',
+        //        color: ( // theme
+        //            Highcharts.defaultOptions.title.style &&
+        //            Highcharts.defaultOptions.title.style.color
+        //        ) || 'black'
+        //    }
+        //}
+		
+		]
+    },
+	
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+	
+    series: [
+	{
+        type: 'pie',
+        name: 'Total consumption',
+        data: [{
+            name: 'Jane',
+            y: 13,
+            color: Highcharts.getOptions().colors[0] // Jane's color
+        }, {
+            name: 'John',
+            y: 23,
+            color: Highcharts.getOptions().colors[1] // John's color
+        }, {
+            name: 'Joe',
+            y: 19,
+            color: Highcharts.getOptions().colors[2] // Joe's color
+        }],
+        center: [100, 80],
+        size: 100,
+        showInLegend: false,
+        dataLabels: {
+            enabled: false
+        }
+    }
+	,{
+        type: 'pie',
+        name: 'AB',
+		innerSize: '50%',
+		text: 'Combination chart',
+        data: [{
+            name: 'Jane',
+            y: 1,
+            color: 'red'
+        }, {
+            name: 'John',
+            y: 1,
+            color: 'green'
+        }],
+        center: [200, 80],
+        size: 100,
+        showInLegend: false,
+        dataLabels: {
+            enabled: false
+        }
+    }
+	,{
+		type: 'pie',
+		data:[{name: 'B8IEX20',y:1}],
+		center: [200, 80],
+		size: 50,
+        dataLabels: {
+            enabled: true,
+			distance: -25
+        }
+	}
+	
+	
+	
+	]
+	
+});
+
+
+function chart_update() {
+	var ss = new Date().getSeconds();
+    chart.update({
+        title: {
+            text: 'Polar' + ss
+        },
+		series:[
+		{
+        type: 'pie',
+        name: 'AB',
+		innerSize: '50%',
+		text: 'Combination chart',
+        data: [{
+            name: 'Jane',
+            y: ss,
+            color: 'red'
+        }, {
+            name: 'John',
+            y: 10,
+            color: 'green'
+        }],
+        center: [200, 80],
+        size: 100,
+        showInLegend: false,
+        dataLabels: {
+            enabled: false
+        }
+    },
+		
+		{
+		type: 'pie',
+		data:[{name: 'B8IEX20',y:1}],
+		center: [200, 80],
+		size: 50,
+        dataLabels: {
+            enabled: true,
+			distance: -25
+        }
+	}
+		]
+    });
+}
+
+    function startTime(){
+      var today = new Date();
+      var hh = today.getHours();
+      var mm = today.getMinutes();
+      var ss = today.getSeconds();
+	  if (ss % 1 == 0){
+	  chart_update();
+	  };
+      mm = checkTime(mm);
+      ss = checkTime(ss);
+      document.getElementById('clock').innerHTML = hh + ":" + mm + ":" + ss;
+      var timeoutId = setTimeout(startTime, 1000);
+    }
+
+    function checkTime(i){
+      if(i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+  
+</script>
+簡單的時鐘
+<div id="clock"></div>
+</body>
+</html>
