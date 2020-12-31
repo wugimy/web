@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<title>新增網頁1</title>
+</head>
+
+<body onload="to_play()">
+<script>
+function to_play() {
+audio.play();
+}
+function to_pause() {
+audio.pause();
+}
+</script>
+
+<video src="D:\Users\Public\Videos\Sample Videos\野生生物.wmv" controls></video>
+<audio src="test.mp3" id="audio"></audio>
+
+<div onclick="to_play()">播放</div>
+<div onclick="to_pause()">暫停</div>
+</body>
+
+</html>
