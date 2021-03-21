@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="demo">aaa</div>
+
+<input type="text" id="clock" />
+<script type="text/javascript">
+
+var text = '{"employees":[' +
+'{"firstName":"John","lastName":"Doe" },' +
+'{"firstName":"Anna","lastName":"Smith" },' +
+'{"firstName":"Peter","lastName":"Jones" }]}';
+
+obj = JSON.parse(text);
+
+document.getElementById("demo").innerHTML = obj.employees[1].firstName + " " + obj.employees[1].lastName
+
+document.getElementById("demo").innerHTML = obj.employees.length;
+
+var eqp_arr = ['A8IEX10','A8IEX20'];
+var dtm_arr = ['2021-03-21 07:30:00','2021-03-21 08:30:00']
+
+for (var i=0;i<eqp_arr.length;i++) {
+document.write('<div id=' + eqp_arr[i] + '></div>')
+}
+
+var int=self.setInterval("clock()",1000);
+function clock()
+{
+var date1 = '2021-03-21 07:30:00';
+var objDate = new Date(date1);
+
+var start_dtm = new Date('2021-03-21 07:30:00');
+var d=new Date();
+
+var diff = d - start_dtm;
+diff = diff / 1000
+var t=d.toLocaleTimeString();
+document.getElementById("clock").value=t;
+
+for (var i=0;i<eqp_arr.length;i++) {
+start_dtm = new Date(dtm_arr[i]);
+diff = (d - start_dtm)/1000;
+document.getElementById(eqp_arr[i]).innerHTML=eqp_arr[i] + '->' + diff;
+}
+}
+</script>
+
+<button onclick="int=window.clearInterval(int)">停止</button>
+
+
+
+</body>
+</html>
