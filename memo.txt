@@ -1,0 +1,5 @@
+<div id="test_mes">aaaa</div>
+<script>
+htmlobj=$.ajax({url:"http://l5abweb01/JSON/alarm1.txt",async:false});
+$("#test_mes").html(htmlobj.responseText);
+</script>
