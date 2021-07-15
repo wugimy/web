@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>CodePen - Jquery-AJAX抓資料</title>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+<style>
+li{list-style: none;}
+.isloading{
+		display: block;
+		background-color: #4CAF50;
+}
+</style>
+
+</head>
+
+<body>
+
+<button id="b01" type="button">Load</button>
+
+
+
+<script type="text/javascript">
+var url = "/JSON/db2_rw_wip.asp";
+var json_data = get_json(url);
+
+function get_json(url) {
+var result = false; //預設值
+$.ajax({
+url: url,//json檔案位置
+type: "GET",//請求方式為get
+dataType: "json", //返回資料格式為json
+async: false, //設定Ajax非同步為false，賦值的時候資料還沒提取出來，你當然賦不進去，所以只要改成同步操作就行
+success: function(data) {//請求成功完成後要執行的方法
+result = data; //回傳值
+}
+});
+return result;
+}
+
+function json_to_table(json_data) {
+	table = "<table><tr>";
+	for(var key in json_data[0]){
+		table = table + "<th>" + key + "</th>";
+	}
+	table = table + "</tr>";
+	for (var i = 0; i < json_data.length; i++) {
+		table = table + "<tr>";
+		for(var key in json_data[i]){
+			table = table + "<td>" + json_data[i][key] + "</td>";
+		}
+		table = table + "</tr>";
+	}
+	table = table + "</table>";
+	return table;
+}
+
+
+
+
+$(document).ready(function(){
+	$("#b01").click(function(){
+  
+	var table = json_to_table(json_data);
+	
+	var table2 = "";
+	var data_filter = json_data.filter(function (e) { return e.NX_OPE_ID.trim() == "AS+STA"; });
+	var table1 = json_to_table(data_filter);
+	table2 = table2 + table1
+	var data_filter = json_data.filter(function (e) { return e.NX_OPE_ID.trim() == "PV+STA"; });
+	var table1 = json_to_table(data_filter);
+	table2 = table2 + table1
+	
+	$("#myDiv").html(table);
+	$("#myDiv2").html(table2);
+  });
+});
+</script>
+
+<div id="myDiv"><h2></h2></div>
+<div id="myDiv2"><h2></h2></div>
+
+</body>
+</html>
