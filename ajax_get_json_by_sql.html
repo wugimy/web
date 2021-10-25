@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script type="text/javascript">
+function show_json(sql) {
+	$.ajax({ 
+	url: "/", // 你的請求連結 
+	data: { // 提交數據 
+	"sql": sql}, // 前者為欄位名，後者為數據 
+	dataType: "json",
+	success(data) { // data為返回值 // 成功後的回調方法
+		text = "";
+		for (var i=0;i<data.length;i++) {
+			for(var key in data[0]){
+				text += "," + data[i][key];
+			}
+		}
+		$("#myDiv").html(text);
+	}
+	})
+}
+
+</script>
+</head>
+<body>
+
+
+<button id="b01" type="button" onclick="show_json('select * from expense order by CREATE_DTM desc limit 3')">改变内容</button>
+<button id="b01" type="button" onclick="show_json('select * from expense order by CREATE_DTM desc limit 5')">改变内容</button>
+<button id="b01" type="button" onclick="show_json('select * from expense where PAY_DATE >= \'2021-05-01\' order by CREATE_DTM desc')">改变内容</button>
+<button id="b01" type="button" onclick="show_json('select PAY_DATE,sum(EXPENSE) from expense where PAY_DATE >= \'2021-05-01\' group by PAY_DATE')">改变内容</button>
+<div id="myDiv"><h2>通过 AJAX 改变文本</h2></div>
+
+</body>
+</html>
