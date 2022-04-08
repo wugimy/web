@@ -1,0 +1,93 @@
+//GROUP BY
+function group_by(json,field){
+	var group_field = field;
+	var group = [];
+    var result = [];
+    for(var i=0;i<json.length;i++){
+		if(group.indexOf(json[i][group_field])<0){
+        	group.push(json[i][group_field]);
+            result.push({name:json[i][group_field],cnt:0});
+        }
+        var ii = group.indexOf(json[i][group_field]);
+        result[ii]["cnt"]++;
+    }
+    return result;
+}
+
+//JSON輸出表格
+function json_to_table(json_data) {
+    t = "<table><tr>";
+    for(var key in json_data[0]){
+        t += "<td>" + key + "</td>";
+    }
+    t += "</tr>";
+    for (var i = 0; i < json_data.length; i++) {
+        t += "<tr>";
+        for(var key in json_data[i]){
+            t += ("<td>" + json_data[i][key] + "</td>");
+        }
+        t += ("</tr>");
+    }
+    t += ("</table>");
+    return t
+}
+
+//ORDER BY
+function order_by(json,field){
+    //由小到大排序
+    for(var i=0;i<json.length-1;i++){
+        for(var j=1;j<json.length-i;j++){
+            if(json[j-1][field] < json[j][field]){
+                var temp = json[j];
+                json[j] = json[j-1];
+                json[j-1] = temp;
+            }
+        }
+    }
+    return json
+}
+
+
+//樞紐分析
+function pivot(json,row_name,col_name,inner_name) {
+	key = []
+    for(arr in json[0]){
+    	key.push(arr)
+    }
+    row = [];
+    col = [];
+    for(var i=0;i<json.length;i++){
+        if(row.indexOf(json[i][row_name])<0){
+            row.push(json[i][row_name]);
+        }
+        if(col.indexOf(json[i][col_name])<0){
+            col.push(json[i][col_name]);
+        }
+    }
+	
+    //產生內部資料並歸零
+    var data = [];
+    for(var i=0;i<row.length;i++) {
+        data.push([]);
+        for(var j=0;j<col.length;j++) {
+        	data[i].push(0);
+        }
+    }
+	
+    //運算樞紐的內部資料
+    for(var i=0;i<json.length;i++) {
+        x = row.indexOf(json[i][row_name]);
+        y = col.indexOf(json[i][col_name]);
+        data[x][y] += parseFloat(json[i][inner_name]);
+    }
+    
+    var pivot_json = []
+    for(var i=0;i<row.length;i++) {
+        pivot_json.push({});
+        pivot_json[i][row_name] = row[i];
+        for(var j=0;j<col.length;j++) {
+            pivot_json[i][col[j]] = data[i][j];
+        }
+    }
+    return pivot_json
+}
