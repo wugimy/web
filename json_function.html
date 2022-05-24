@@ -1,6 +1,9 @@
 //使用AJAX取得文字轉JSON (JSON.parse)
 obj = JSON.parse(htmlobj.responseText);
 
+//使用filter執行篩選
+json = obj.filter(e => e.EC_CODE=="1G" && e.STAGE_ID=="CLGL");
+
 //JSON轉文字 (JSON.stringify)
 str = JSON.stringify(obj)
 
