@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+  
+	<style>
+	label{
+		width: 100px;
+		text-align: right;
+	}
+	</style>
+  
+</head>
+<body>
+
+<div class="container-fluid p-4">
+
+<script>
+
+//JSON輸出表格
+function json_to_table(json_data) {
+    t = "<table class='table table-striped'><tr class='bg-primary text-light'>";
+    for(var key in json_data[0]){
+        t += "<th>" + key + "</th>";
+    }
+	t += "<th></th>";
+    t += "</tr>";
+    for (var i = 0; i < json_data.length; i++) {
+        t += "<tr>";
+        for(var key in json_data[i]){
+            t += ("<td>" + json_data[i][key] + "</td>");
+        }
+		t += '<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" onclick="show_modal(' + json_data[i]['SN'] + ')">edit </button></td>';
+        t += ("</tr>");
+    }
+    t += ("</table>");
+    return t
+}
+
+json = [{"SN":"1","name":"AAA","cate":"ddd"},{"SN":"2","name":"BB","cate":"ddd"},{"SN":"3","name":"CCC","cate":"ddd"}];
+document.write(json_to_table(json));
+
+
+function show_modal(sn){
+new_json = json.filter(e => e.SN==sn);
+t = "";
+for (key in new_json[0]){
+	t += "<label>" + key + ":</label><input type='text' value='" + new_json[0][key] + "'><br>";
+}
+$("#show_modal").html(t);
+}
+</script>
+
+</div>
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+  
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<div id="show_modal"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+	
+  </div>
+</div>
+
+
+</body>
+</html>
