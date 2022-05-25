@@ -41,6 +41,29 @@ function json_to_table(json_data) {
     return t
 }
 
+//JSON輸出跨列表格
+function json_to_tr(json_data,field) {
+    t = "<tr class='bg-primary text-light'>";
+	t += "<th>" + field + "</th>";
+    for(var key in json_data[0]){
+        t += "<th>" + key + "</th>";
+    }
+	t += "<th></th>";
+    t += "</tr>";
+    for (var i = 0; i < json_data.length; i++) {
+        t += "<tr>";
+		if(i==0){
+			t += "<td rowspan=" + json_data.length + ">" + json_data[0][field] + "</td>";
+		}
+        for(var key in json_data[i]){
+            t += ("<td>" + json_data[i][key] + "</td>");
+        }
+		t += '<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" onclick="show_modal(' + json_data[i]['SN'] + ')">edit </button></td>';
+        t += ("</tr>");
+    }
+    return t
+}
+					 
 //ORDER BY
 function order_by(json,field){
     //由小到大排序
