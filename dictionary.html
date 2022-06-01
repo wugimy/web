@@ -1,0 +1,11 @@
+//字典對照表執行轉換(有找到就用對應值，沒找到就回傳自己)
+function dict_mapping(a){
+	var dict={"aa":"找到aa","bb":"找到bb"};
+    if (dict[a]==undefined){
+    	b = a;
+    }
+    else {
+    	b = dict[a];
+    }
+    return b
+}
