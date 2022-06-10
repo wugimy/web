@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Click to add a point</title>
+
+<link rel="stylesheet" href="/bootstrap/4.5.2/bootstrap.min.css">
+
+<link href="/js/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/highcharts.js"></script>
+</head>
+<body>
+
+<div class="container p-4">
+
+<script>
+function json_to_table(json_data) {
+    t = "<table><tr>";
+    for(var key in json_data[0]){
+        t += "<td>" + key + "</td>";
+    }
+    t += "</tr>";
+    for (var i = 0; i < json_data.length; i++) {
+        t += "<tr>";
+        for(var key in json_data[i]){
+            t += ("<td>" + json_data[i][key] + "</td>");
+        }
+        t += ("</tr>");
+    }
+    t += ("</table>");
+    return t
+}
+function json_to_array(json_data,field) {
+	arr = [];
+	for (var i = 0; i < json_data.length; i++) {
+		arr.push(parseFloat(json_data[i][field]));
+	}
+	return arr
+}
+//DISTINCT
+function distinct(json,field){
+	var group_field = field;
+	var group = [];
+    for(var i=0;i<json.length;i++){
+		if(group.indexOf(json[i][group_field])<0){
+        	group.push(json[i][group_field]);
+        }
+    }
+    return group;
+}
+
+Highcharts.theme = {
+    colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+        '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+    chart: {
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            stops: [
+                [0, '#2a2a2b'],
+                [1, '#3e3e40']
+            ]
+        },
+        style: {
+            fontFamily: '\'Unica One\', sans-serif'
+        },
+        plotBorderColor: '#606063'
+    },
+    title: {
+        style: {
+            color: '#E0E0E3',
+            textTransform: 'uppercase',
+            fontSize: '20px'
+        }
+    },
+    subtitle: {
+        style: {
+            color: '#E0E0E3',
+            textTransform: 'uppercase'
+        }
+    },
+    xAxis: {
+        gridLineColor: '#707073',
+        labels: {
+            style: {
+                color: '#E0E0E3'
+            }
+        },
+        lineColor: '#707073',
+        minorGridLineColor: '#505053',
+        tickColor: '#707073',
+        title: {
+            style: {
+                color: '#A0A0A3'
+            }
+        }
+    },
+    yAxis: {
+        gridLineColor: '#707073',
+        labels: {
+            style: {
+                color: '#E0E0E3'
+            }
+        },
+        lineColor: '#707073',
+        minorGridLineColor: '#505053',
+        tickColor: '#707073',
+        tickWidth: 1,
+        title: {
+            style: {
+                color: '#A0A0A3'
+            }
+        }
+    },
+    tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        style: {
+            color: '#F0F0F0'
+        }
+    },
+    plotOptions: {
+
+        series: {
+            dataLabels: {
+				enabled: true,
+                color: '#F0F0F3',
+                style: {
+                    fontSize: '16px'
+                }
+            },
+            marker: {
+                lineColor: '#333'
+            }
+        },
+        boxplot: {
+            fillColor: '#505053'
+        },
+        candlestick: {
+            lineColor: 'white'
+        },
+        errorbar: {
+            color: 'white'
+        }
+    },
+    legend: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        itemStyle: {
+            color: '#E0E0E3'
+        },
+        itemHoverStyle: {
+            color: '#FFF'
+        },
+        itemHiddenStyle: {
+            color: '#606063'
+        },
+        title: {
+            style: {
+                color: '#C0C0C0'
+            }
+        }
+    },
+    credits: {
+        style: {
+            color: '#666'
+        }
+    },
+    labels: {
+        style: {
+            color: '#707073'
+        }
+    },
+    drilldown: {
+        activeAxisLabelStyle: {
+            color: '#F0F0F3'
+        },
+        activeDataLabelStyle: {
+            color: '#F0F0F3'
+        }
+    },
+    navigation: {
+        buttonOptions: {
+            symbolStroke: '#DDDDDD',
+            theme: {
+                fill: '#505053'
+            }
+        }
+    },
+    // scroll charts
+    rangeSelector: {
+        buttonTheme: {
+            fill: '#505053',
+            stroke: '#000000',
+            style: {
+                color: '#CCC'
+            },
+            states: {
+                hover: {
+                    fill: '#707073',
+                    stroke: '#000000',
+                    style: {
+                        color: 'white'
+                    }
+                },
+                select: {
+                    fill: '#000003',
+                    stroke: '#000000',
+                    style: {
+                        color: 'white'
+                    }
+                }
+            }
+        },
+        inputBoxBorderColor: '#505053',
+        inputStyle: {
+            backgroundColor: '#333',
+            color: 'silver'
+        },
+        labelStyle: {
+            color: 'silver'
+        }
+    },
+    navigator: {
+        handles: {
+            backgroundColor: '#666',
+            borderColor: '#AAA'
+        },
+        outlineColor: '#CCC',
+        maskFill: 'rgba(255,255,255,0.1)',
+        series: {
+            color: '#7798BF',
+            lineColor: '#A6C7ED'
+        },
+        xAxis: {
+            gridLineColor: '#505053'
+        }
+    },
+    scrollbar: {
+        barBackgroundColor: '#808083',
+        barBorderColor: '#808083',
+        buttonArrowColor: '#CCC',
+        buttonBackgroundColor: '#606063',
+        buttonBorderColor: '#606063',
+        rifleColor: '#FFF',
+        trackBackgroundColor: '#404043',
+        trackBorderColor: '#404043'
+    }
+};
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+
+
+var json = [{"MFG_DAY":"2022/5/1","INPUT":"1892"},{"MFG_DAY":"2022/5/2","INPUT":"1508"},{"MFG_DAY":"2022/5/3","INPUT":"2516"},{"MFG_DAY":"2022/5/4","INPUT":"2654"},{"MFG_DAY":"2022/5/5","INPUT":"2672"},{"MFG_DAY":"2022/5/6","INPUT":"2712"},{"MFG_DAY":"2022/5/7","INPUT":"3024"},{"MFG_DAY":"2022/5/8","INPUT":"2047"},{"MFG_DAY":"2022/5/9","INPUT":"1230"},{"MFG_DAY":"2022/5/10","INPUT":"1194"},{"MFG_DAY":"2022/5/11","INPUT":"1502"},{"MFG_DAY":"2022/5/12","INPUT":"1304"},{"MFG_DAY":"2022/5/13","INPUT":"916"},{"MFG_DAY":"2022/5/14","INPUT":"1348"},{"MFG_DAY":"2022/5/15","INPUT":"1230"},{"MFG_DAY":"2022/5/16","INPUT":"1092"},{"MFG_DAY":"2022/5/17","INPUT":"1377"},{"MFG_DAY":"2022/5/18","INPUT":"1494"},{"MFG_DAY":"2022/5/19","INPUT":"1505"},{"MFG_DAY":"2022/5/20","INPUT":"2167"},{"MFG_DAY":"2022/5/21","INPUT":"1827"},{"MFG_DAY":"2022/5/22","INPUT":"828"},{"MFG_DAY":"2022/5/23","INPUT":"1392"},{"MFG_DAY":"2022/5/24","INPUT":"1614"},{"MFG_DAY":"2022/5/25","INPUT":"1025"},{"MFG_DAY":"2022/5/26","INPUT":"1755"},{"MFG_DAY":"2022/5/27","INPUT":"1295"},{"MFG_DAY":"2022/5/28","INPUT":"546"},{"MFG_DAY":"2022/5/29","INPUT":"869"},{"MFG_DAY":"2022/5/30","INPUT":"755"},{"MFG_DAY":"2022/5/31","INPUT":"623"},{"MFG_DAY":"2022/6/1","INPUT":"1131"},{"MFG_DAY":"2022/6/2","INPUT":"518"},{"MFG_DAY":"2022/6/3","INPUT":"262"},{"MFG_DAY":"2022/6/4","INPUT":"992"},{"MFG_DAY":"2022/6/5","INPUT":"1254"},{"MFG_DAY":"2022/6/6","INPUT":"2895"},{"MFG_DAY":"2022/6/7","INPUT":"2114"},{"MFG_DAY":"2022/6/8","INPUT":"3022"},{"MFG_DAY":"2022/6/9","INPUT":"2944"},{"MFG_DAY":"2022/6/10","INPUT":"1145"}];
+
+var data = json_to_array(json,"INPUT");
+
+document.write('<div class="row">');
+
+document.write('<div class="col-sm-6">');
+document.write('<div id="container1"></div>');
+Highcharts.chart('container1', {
+	series: [{data: data}]
+});
+document.write('</div>');
+
+document.write('<div class="col-sm-6">');
+document.write('<div id="container2"></div>');
+Highcharts.chart('container2', {
+	series: [{type:'column',data: data}]
+});
+document.write('</div>');
+
+document.write('</div>');
+
+document.write('<div class="row">');
+document.write('<div class="col-sm-12">');
+document.write(json_to_table(json));
+document.write('</div>');
+document.write('</div>');
+
+</script>
+
+</div>
+</BODY>
+</HTML>
