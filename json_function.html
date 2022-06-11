@@ -40,7 +40,24 @@ function json_to_table(json_data) {
     t += ("</table>");
     return t
 }
-
+function split_json_to_table(split_json){
+    var t = "<table>";
+    t += "<tr>";
+    for(var i=0;i<split_json["columns"].length;i++){
+        t += "<td>" + split_json["columns"][i] + "</td>";
+    }
+    t += "</tr>";
+    for(var i=0;i<split_json["data"].length;i++){
+        t += "<tr>";
+        for(var j=0;j<split_json["data"][i].length;j++){
+            t += "<td>" + split_json["data"][i][j] + "</td>";
+        }
+        t += "</tr>";
+    }
+    t += "</table>";
+    return t
+}
+					 
 //JSON輸出跨列表格
 function json_to_tr(json_data,field) {
     t = "<tr class='bg-primary text-light'>";
