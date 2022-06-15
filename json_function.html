@@ -3,6 +3,10 @@ obj = JSON.parse(htmlobj.responseText);
 
 //使用filter執行篩選
 json = obj.filter(e => e.EC_CODE=="1G" && e.STAGE_ID=="CLGL");
+//執行篩選(IE適用)
+new_json = jQuery.grep(json, function(e) {
+return e.STAGE==result[i];
+});
 
 //JSON轉文字 (JSON.stringify)
 str = JSON.stringify(obj)
