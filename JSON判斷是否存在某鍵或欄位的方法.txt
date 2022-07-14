@@ -1,0 +1,11 @@
+如何判斷傳過來的JSON資料中，某個欄位是否存在， 
+
+1.obj["key"] != undefined 
+
+這種有缺陷，如果這個key定義了，並且就是很2的賦值為undefined，那麼這句就會出問題了。 
+
+2.!("key" in obj) 
+
+3.obj.hasOwnProperty("key") 
+
+這兩種方法就比較好了，推薦使用。 
